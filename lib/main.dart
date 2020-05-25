@@ -1,5 +1,9 @@
 import 'package:flutter/material.dart';
 
+import 'quiz_brain.dart';
+
+QuizBrain quizBrain = QuizBrain();
+
 void main() => runApp(Quizzler());
 
 class Quizzler extends StatelessWidget {
@@ -25,6 +29,9 @@ class QuizPage extends StatefulWidget {
 }
 
 class _QuizPageState extends State<QuizPage> {
+  List<Widget> scoreKeeper = [];
+
+  var questionNumber = 0;
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -37,7 +44,7 @@ class _QuizPageState extends State<QuizPage> {
             padding: EdgeInsets.all(10.0),
             child: Center(
               child: Text(
-                'This is where the question text will go.',
+                quizBrain.questions[questionNumber].questionText,
                 textAlign: TextAlign.center,
                 style: TextStyle(
                   fontSize: 25.0,
@@ -62,6 +69,11 @@ class _QuizPageState extends State<QuizPage> {
               ),
               onPressed: () {
                 //The user picked true.
+                if (quizBrain.questions[questionNumber].questionAnswer ==
+                    true) {}
+                setState(() {
+                  questionNumber++;
+                });
               },
             ),
           ),
@@ -80,10 +92,14 @@ class _QuizPageState extends State<QuizPage> {
               ),
               onPressed: () {
                 //The user picked false.
+                setState(() {
+                  questionNumber++;
+                });
               },
             ),
           ),
         ),
+        Row(children: scoreKeeper),
         //TODO: Add a Row here as your score keeper
       ],
     );
