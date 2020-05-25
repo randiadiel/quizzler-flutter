@@ -1,6 +1,7 @@
 import 'question.dart';
 
 class QuizBrain {
+  var _questionNumber = 0;
   List<Question> _questions = [
     Question('Helllo is truee (true)', true),
     Question('not hello is false (false)', false),
@@ -32,11 +33,17 @@ class QuizBrain {
         true),
   ];
 
-  String getQuestionText(questionNumber) {
-    return _questions[questionNumber].questionText;
+  void nextQuestion() {
+    if (_questionNumber < _questions.length) {
+      _questionNumber++;
+    }
   }
 
-  bool getQuestionAnswer(questionNumber) {
-    return _questions[questionNumber].questionAnswer;
+  String getQuestionText() {
+    return _questions[this._questionNumber].questionText;
+  }
+
+  bool getQuestionAnswer() {
+    return _questions[this._questionNumber].questionAnswer;
   }
 }
