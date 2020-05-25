@@ -1,7 +1,7 @@
 import 'question.dart';
 
 class QuizBrain {
-  List<Question> questions = [
+  List<Question> _questions = [
     Question('Helllo is truee (true)', true),
     Question('not hello is false (false)', false),
     Question('yes is trus (true)', false),
@@ -31,4 +31,12 @@ class QuizBrain {
         'In West Virginia, USA, if you accidentally hit an animal with your car, you are free to take it home to eat.',
         true),
   ];
+
+  String getQuestionText(questionNumber) {
+    return _questions[questionNumber].questionText;
+  }
+
+  bool getQuestionAnswer(questionNumber) {
+    return _questions[questionNumber].questionAnswer;
+  }
 }
