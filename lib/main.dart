@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:rflutter_alert/rflutter_alert.dart';
 
 import 'quiz_brain.dart';
 
@@ -36,20 +37,45 @@ class _QuizPageState extends State<QuizPage> {
 
     if (correctAnswer == userAnswer) {
       print('user got it right');
-      scoreKeeper.add(Icon(
-        Icons.check,
-        color: Colors.green,
-      ));
+      setState(() {
+        scoreKeeper.add(Icon(
+          Icons.check,
+          color: Colors.green,
+        ));
+      });
     } else {
       print('user got it wrong');
-      scoreKeeper.add(Icon(
-        Icons.close,
-        color: Colors.red,
-      ));
+      setState(() {
+        scoreKeeper.add(Icon(
+          Icons.close,
+          color: Colors.red,
+        ));
+      });
     }
-    setState(() {
-      quizBrain.nextQuestion();
-    });
+    if (quizBrain.nextQuestion() == false) {
+      Alert(
+        context: context,
+        style: AlertStyle(
+          isCloseButton: false,
+          isOverlayTapDismiss: false,
+        ),
+        type: AlertType.success,
+        title: 'You\'re great !',
+        desc: 'You have finished the quiz. Do you wish to restart?',
+        buttons: [
+          DialogButton(
+            child: Text('Restart!'),
+            onPressed: () {
+              setState(() {
+                Navigator.pop(context);
+                quizBrain.restart();
+                scoreKeeper.clear();
+              });
+            },
+          )
+        ],
+      ).show();
+    }
   }
 
   @override

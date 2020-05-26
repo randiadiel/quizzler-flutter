@@ -33,9 +33,16 @@ class QuizBrain {
         true),
   ];
 
-  void nextQuestion() {
+  void restart() {
+    _questionNumber = 0;
+  }
+
+  bool nextQuestion() {
     if (_questionNumber < _questions.length - 1) {
       _questionNumber++;
+      return true;
+    } else {
+      return false;
     }
   }
 
